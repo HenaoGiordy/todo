@@ -1,6 +1,8 @@
 package com.univalle.todo.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -13,6 +15,7 @@ import lombok.*;
 @Setter
 public class Tareas {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull(message = "Debes ingresar un nombre")

@@ -1,5 +1,6 @@
 package com.univalle.todo.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,15 +20,16 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
 
     private JwtUtils jwtUtils;
 
    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       http.csrf(AbstractHttpConfigurer::disable)
-               .sessionManagement(httpSessionManagement -> httpSessionManagement
-                       .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+       http
+               .csrf(AbstractHttpConfigurer::disable)
+               .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                .addFilterBefore(new JwtFilter(jwtUtils), BasicAuthenticationFilter.class);
 
        return http.build();
