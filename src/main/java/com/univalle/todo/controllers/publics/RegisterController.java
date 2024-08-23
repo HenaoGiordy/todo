@@ -3,6 +3,7 @@ package com.univalle.todo.controllers.publics;
 import com.univalle.todo.DTO.register.RegisterRequest;
 import com.univalle.todo.DTO.register.RegisterResponse;
 import com.univalle.todo.services.UserDetailServiceImp;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class RegisterController {
     private UserDetailServiceImp userDetailServiceImp;
 
     @PostMapping()
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
         return new ResponseEntity<>(userDetailServiceImp.register(registerRequest), HttpStatus.CREATED);
     }
 }
