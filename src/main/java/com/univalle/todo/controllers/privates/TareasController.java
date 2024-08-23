@@ -1,8 +1,9 @@
 package com.univalle.todo.controllers.privates;
 
-import com.univalle.todo.entities.Tareas;
-import com.univalle.todo.repository.TareasRepository;
+import com.univalle.todo.DTO.tarea.TareaDTO;
+import com.univalle.todo.services.ITareaService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,10 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 public class TareasController {
 
-    private TareasRepository tareasRepository;
+    private ITareaService tareaService;
 
     @GetMapping
-    public List<Tareas> getTareas() {
-        return tareasRepository.findAll();
+    public ResponseEntity<List<TareaDTO>> getTareas() {
+        return new ResponseEntity<>(tareaService.listarTareas(), HttpStatus.OK) ;
     }
 }
