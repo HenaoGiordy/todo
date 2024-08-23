@@ -1,5 +1,6 @@
 package com.univalle.todo.security;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -36,16 +37,22 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (token != null && token.startsWith("Bearer ")) {
 
-            token = token.substring(7);
-            DecodedJWT decodedJWT = jwtUtils.validarToken(token);
+            try{
+                token = token.substring(7);
+                DecodedJWT decodedJWT = jwtUtils.validarToken(token);
 
-            String username = decodedJWT.getSubject();
-            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                String username = decodedJWT.getSubject();
+                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-            SecurityContext context = SecurityContextHolder.getContext();
-            Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
-            context.setAuthentication(authentication);
-            SecurityContextHolder.setContext(context);
+                SecurityContext context = SecurityContextHolder.getContext();
+                Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+                context.setAuthentication(authentication);
+                SecurityContextHolder.setContext(context);
+            }catch (JWTVerificationException exc){
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+
 
         }
         filterChain.doFilter(request, response);
