@@ -8,6 +8,7 @@ import com.univalle.todo.entities.Usuario;
 import com.univalle.todo.repository.TareasRepository;
 import com.univalle.todo.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class TareaServiceImp implements ITareaService {
             return new TareaDTO(tarea.getNombre(), tarea.getDescripcion(), tareaDTO.idCreador());
         } else {
             // Manejar el caso cuando el usuario no existe
-            throw new RuntimeException("Usuario con ID " + tareaDTO.idCreador() + " no encontrado.");
+            throw new UsernameNotFoundException("Usuario con ID " + tareaDTO.idCreador() + " no encontrado.");
         }
     }
 
@@ -54,13 +55,13 @@ public class TareaServiceImp implements ITareaService {
     public List<TareaListDTO> listarTareas(Integer id) {
 
             return tareasRepository.findAllByUsuarioId(id).stream().map(
-                    tareas -> new TareaListDTO(tareas.getNombre(), tareas.getDescripcion())
+                    tareas -> new TareaListDTO(tareas.getId(),  tareas.getNombre(), tareas.getDescripcion())
             ).toList();
         }
 
     @Override
-    public void eliminarTarea(Long id) {
-
+    public void eliminarTarea(Integer id) {
+        tareasRepository.deleteById(id);
     }
 
 
