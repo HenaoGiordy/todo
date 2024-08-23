@@ -29,4 +29,10 @@ public class TareasController {
     public ResponseEntity<TareaDTO> createTarea(@Valid @RequestBody TareaDTO tareaDTO) {
         return new ResponseEntity<>(tareaService.crearTarea(tareaDTO), HttpStatus.CREATED) ;
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTarea(@PathVariable Integer id) {
+        tareaService.eliminarTarea(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
+    }
 }

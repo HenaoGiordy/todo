@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 @Component
@@ -38,9 +40,14 @@ public class JwtUtils {
             Optional<Usuario> usuarioOpt = userRepository.findByUsername(username);
             Usuario usuario = usuarioOpt.orElseThrow();
 
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.HOUR, 8);
+            Date expirationDate = calendar.getTime();
+
             return JWT.create()
                     .withSubject(username)
                     .withClaim("id", usuario.getId())
+                    .withExpiresAt(expirationDate)
                     .withIssuer(issuer)
                     .sign(algorithm);
         } catch (JWTCreationException exception){

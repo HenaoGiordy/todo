@@ -3,6 +3,7 @@ package com.univalle.todo.services;
 import com.univalle.todo.DTO.tarea.EditTareaDTO;
 import com.univalle.todo.DTO.tarea.TareaDTO;
 import com.univalle.todo.DTO.tarea.TareaListDTO;
+import com.univalle.todo.controllers.exceptions.TareaNotFoundException;
 import com.univalle.todo.entities.Tareas;
 import com.univalle.todo.entities.Usuario;
 import com.univalle.todo.repository.TareasRepository;
@@ -61,7 +62,13 @@ public class TareaServiceImp implements ITareaService {
 
     @Override
     public void eliminarTarea(Integer id) {
-        tareasRepository.deleteById(id);
+        Optional<Tareas> tarea = tareasRepository.findById(id);
+
+        if (tarea.isPresent()) {
+            tareasRepository.delete(tarea.get());
+        }else {
+            throw new TareaNotFoundException("Tarea no encontrada");
+        }
     }
 
 
