@@ -27,6 +27,6 @@ public class Usuario {
     @NotBlank
     private String password;
 
-    @OneToMany
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Tareas> tareas;
 }

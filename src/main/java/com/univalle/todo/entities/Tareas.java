@@ -1,9 +1,7 @@
 package com.univalle.todo.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.univalle.todo.DTO.tarea.TareaDTO;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -26,4 +24,12 @@ public class Tareas {
 
     private Boolean completado = false;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    public Tareas(TareaDTO tareaDTO) {
+        this.nombre = tareaDTO.nombre();
+        this.descripcion = tareaDTO.descripcion();
+    }
 }
