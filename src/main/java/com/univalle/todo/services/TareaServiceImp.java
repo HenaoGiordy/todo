@@ -2,6 +2,7 @@ package com.univalle.todo.services;
 
 import com.univalle.todo.DTO.tarea.EditTareaDTO;
 import com.univalle.todo.DTO.tarea.TareaDTO;
+import com.univalle.todo.DTO.tarea.TareaFinalizadaDTO;
 import com.univalle.todo.DTO.tarea.TareaListDTO;
 import com.univalle.todo.controllers.exceptions.TareaNotFoundException;
 import com.univalle.todo.entities.Tareas;
@@ -77,6 +78,19 @@ public class TareaServiceImp implements ITareaService {
 
         if (tarea.isPresent()) {
             tareasRepository.delete(tarea.get());
+        }else {
+            throw new TareaNotFoundException("Tarea no encontrada");
+        }
+    }
+
+    @Override
+    public TareaFinalizadaDTO finalizarTarea(Integer id) {
+        Optional<Tareas> tareaOpt = tareasRepository.findById(id);
+        if (tareaOpt.isPresent()) {
+            Tareas tareas = tareaOpt.get();
+            tareas.setCompletado(true);
+            tareasRepository.save(tareas);
+            return new TareaFinalizadaDTO(tareas.getNombre(), "Finalizada con exito");
         }else {
             throw new TareaNotFoundException("Tarea no encontrada");
         }
