@@ -68,7 +68,10 @@ public class TareaServiceImp implements ITareaService {
     public List<TareaListDTO> listarTareas(Integer id) {
 
             return tareasRepository.findAllByUsuarioId(id).stream().map(
-                    tareas -> new TareaListDTO(tareas.getId(),  tareas.getNombre(), tareas.getDescripcion())
+                    tareas -> new TareaListDTO(tareas.getId(),
+                            tareas.getNombre(),
+                            tareas.getDescripcion(),
+                            tareas.getCompletado())
             ).toList();
         }
 
