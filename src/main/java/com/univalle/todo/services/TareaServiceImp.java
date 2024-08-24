@@ -48,8 +48,19 @@ public class TareaServiceImp implements ITareaService {
     }
 
     @Override
-    public EditTareaDTO modificarTarea(EditTareaDTO tarea) {
-        return null;
+    public EditTareaDTO modificarTarea(Integer id, EditTareaDTO editTareaDTO) {
+
+        Optional<Tareas> tareaOpt = tareasRepository.findById(id);
+
+        if (tareaOpt.isPresent()) {
+            Tareas tareaExistente = tareaOpt.get();
+            tareaExistente.setNombre(editTareaDTO.nombre());
+            tareaExistente.setDescripcion(editTareaDTO.decripcion());
+            tareasRepository.save(tareaExistente);
+            return editTareaDTO;
+        } else {
+            throw new TareaNotFoundException("Tarea no encontrada");
+        }
     }
 
     @Override

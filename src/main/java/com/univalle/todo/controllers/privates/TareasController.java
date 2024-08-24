@@ -1,5 +1,6 @@
 package com.univalle.todo.controllers.privates;
 
+import com.univalle.todo.DTO.tarea.EditTareaDTO;
 import com.univalle.todo.DTO.tarea.TareaDTO;
 import com.univalle.todo.DTO.tarea.TareaListDTO;
 import com.univalle.todo.services.ITareaService;
@@ -35,4 +36,10 @@ public class TareasController {
         tareaService.eliminarTarea(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EditTareaDTO> editTarea(@PathVariable Integer id, @Valid @RequestBody EditTareaDTO editTareaDTO) {
+        return new ResponseEntity<>(tareaService.modificarTarea(id, editTareaDTO), HttpStatus.OK);
+    }
+
 }
