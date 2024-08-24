@@ -2,6 +2,7 @@ package com.univalle.todo.controllers.privates;
 
 import com.univalle.todo.DTO.tarea.EditTareaDTO;
 import com.univalle.todo.DTO.tarea.TareaDTO;
+import com.univalle.todo.DTO.tarea.TareaFinalizadaDTO;
 import com.univalle.todo.DTO.tarea.TareaListDTO;
 import com.univalle.todo.services.ITareaService;
 import jakarta.validation.Valid;
@@ -40,6 +41,11 @@ public class TareasController {
     @PutMapping
     public ResponseEntity<EditTareaDTO> editTarea(@Valid @RequestBody EditTareaDTO editTareaDTO) {
         return new ResponseEntity<>(tareaService.modificarTarea(editTareaDTO), HttpStatus.OK);
+    }
+
+    @PutMapping("/finalizar/{id}")
+    public ResponseEntity<TareaFinalizadaDTO> finalizarTarea(@PathVariable Integer id) {
+        return new ResponseEntity<>(tareaService.finalizarTarea(id) ,HttpStatus.NO_CONTENT) ;
     }
 
 }
