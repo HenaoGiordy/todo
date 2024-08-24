@@ -48,14 +48,14 @@ public class TareaServiceImp implements ITareaService {
     }
 
     @Override
-    public EditTareaDTO modificarTarea(Integer id, EditTareaDTO editTareaDTO) {
+    public EditTareaDTO modificarTarea(EditTareaDTO editTareaDTO) {
 
-        Optional<Tareas> tareaOpt = tareasRepository.findById(id);
+        Optional<Tareas> tareaOpt = tareasRepository.findById(editTareaDTO.id());
 
         if (tareaOpt.isPresent()) {
             Tareas tareaExistente = tareaOpt.get();
             tareaExistente.setNombre(editTareaDTO.nombre());
-            tareaExistente.setDescripcion(editTareaDTO.decripcion());
+            tareaExistente.setDescripcion(editTareaDTO.descripcion());
             tareasRepository.save(tareaExistente);
             return editTareaDTO;
         } else {

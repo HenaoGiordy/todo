@@ -37,9 +37,9 @@ public class TareasController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<EditTareaDTO> editTarea(@PathVariable Integer id, @Valid @RequestBody EditTareaDTO editTareaDTO) {
-        return new ResponseEntity<>(tareaService.modificarTarea(id, editTareaDTO), HttpStatus.OK);
+    @PutMapping
+    public ResponseEntity<EditTareaDTO> editTarea(@Valid @RequestBody EditTareaDTO editTareaDTO) {
+        return new ResponseEntity<>(tareaService.modificarTarea(editTareaDTO), HttpStatus.OK);
     }
 
 }

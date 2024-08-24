@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record EditTareaDTO(
         @NotBlank(message = "Ingrese un nombre") String nombre,
-        @NotBlank(message = "Ingrese una descripción") String decripcion,
+        @NotBlank(message = "Ingrese una descripción") String descripcion,
         @NotNull(message = "Debes enviar el ID de la tarea") Integer id) {
 }

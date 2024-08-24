@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ITareaService {
     TareaDTO crearTarea(TareaDTO tarea);
-    EditTareaDTO modificarTarea(Integer id, EditTareaDTO editTareaDTO);
+    EditTareaDTO modificarTarea(EditTareaDTO editTareaDTO);
     List<TareaListDTO> listarTareas(Integer id);
     void eliminarTarea(Integer id);
 }
