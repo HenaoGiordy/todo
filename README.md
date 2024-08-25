@@ -35,7 +35,23 @@ Esta base de datos debe llamarse "todo".
 La cual debe tener como nombre de usuario "root" y contraseña "root".
 ```
 
-## Ejecución del proyecto en despliegue.
+## Despliegue del proyecto.
+Se creó otra rama la cual se llama "production" en esta la aplicación ya
+se encuentra desplegada permitiendo asi hacer pruebas.
+El link para poder iniciar sesión seria el siguiente:
+```
+https://confident-cooperation-production.up.railway.app/login
+```
+Debido a que ya se tiene un usuario registrado se le pasaria la siguiente
+información:
+```
+{
+    "username": "giordy", 
+    "password": "12345"
+}
+```
+De esta manera devolverá un mensaje de exito informado que el usuario
+ya inicio sesión.
 
 ## Endpoint.
 Para desarrollar esta aplicación web se implementarón varios endpoints. Se
@@ -119,3 +135,9 @@ id de la tarea como parametro. Viendose de la siguiente manera:
 ```
 http://localhost:8080/tareas/finalizar/{id}
 ```
+
+## Integración de backend con frontend
+Para que el frontend pudiera hacer las peticiones, se tuvo que configurar
+el CORS (Cross-Origin Resource Sharing). Este se encarga de permitir 
+que cualquier persona pueda hacer peticiones al backend, de manera que 
+se puedan compartir recursos entre las aplicaciones.
